@@ -1,8 +1,15 @@
 # Python virtual environment
 venv/*
+__pycache__/*
 
 # IDE environment
 .idea/*
 
-# Download imagess
-downloads/*
+# Download images
+assets/*
+!assets/drone_video_short.mp4
+
+# Weights
+weights/*
+!weights/yolov3-tiny.weights
+!weights/yolo-drone.weights

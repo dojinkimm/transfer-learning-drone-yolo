@@ -1,0 +1,7 @@
+opencv-python
+autopep8
+keynote-parser
+google-images-download
+numpy
+tensorflow
+matplotlib
