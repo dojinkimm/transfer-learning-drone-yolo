@@ -13,3 +13,6 @@ assets/*
 weights/*
 !weights/yolov3-tiny.weights
 !weights/yolo-drone.weights
+
+# tensorflow utils
+t_utils/__pycache__/*
