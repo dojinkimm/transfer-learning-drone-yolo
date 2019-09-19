@@ -39,7 +39,7 @@ def main():
     print("Network successfully loaded")
 
     # class names ex) person, car, truck, and etc.
-    PATH_TO_LABELS = "cfg/coco.names"
+    PATH_TO_LABELS = "cfg/drone.names"
 
     # load detection class, default confidence threshold is 0.5
     detect = DetectBoxes(PATH_TO_LABELS, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
