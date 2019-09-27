@@ -1,6 +1,9 @@
 import cv2
 import numpy as np
-from colors import *
+
+STANDARD_COLORS = [
+    (255, 248, 240), (230, 224, 176), (0, 255, 127)
+]
 
 
 def get_class_names(label_path):
