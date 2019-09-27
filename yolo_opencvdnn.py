@@ -7,17 +7,16 @@ from detection_boxes import DetectBoxes
 def arg_parse():
     """ Parsing Arguments for detection """
 
-    parser = argparse.ArgumentParser(description='Pytorch Yolov3')
+    parser = argparse.ArgumentParser(description='Yolov3')
     parser.add_argument("--video", help="Path where video is located",
                         default="assets/drone_video_short.mp4", type=str)
-    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
-    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolo-drone.weights")
+    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolov3-drone.cfg")
+    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolov3-drone.weights")
     parser.add_argument("--conf", dest="confidence", help="Confidence threshold for predictions", default=0.5)
     parser.add_argument("--nms", dest="nmsThreshold", help="NMS threshold", default=0.4)
     parser.add_argument("--resolution", dest='resol', help="Input resolution of network. Higher "
                                                       "increases accuracy but decreases speed",
                         default="416", type=str)
-    parser.add_argument("--webcam", help="Detect with web camera", default=False)
     return parser.parse_args()
 
 
@@ -30,7 +29,7 @@ def get_outputs_names(net):
 def main():
     args = arg_parse()
 
-    VIDEO_PATH = args.video if not args.webcam else 0
+    VIDEO_PATH = args.video if args.video else 0
 
     print("Loading network.....")
     net = cv2.dnn.readNetFromDarknet(args.config, args.weight)
@@ -39,14 +38,13 @@ def main():
     print("Network successfully loaded")
 
     # class names ex) person, car, truck, and etc.
-    PATH_TO_LABELS = "cfg/drone.names"
+    PATH_TO_LABELS = "cfg/coco-drone.names"
 
     # load detection class, default confidence threshold is 0.5
     detect = DetectBoxes(PATH_TO_LABELS, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
 
     # Set window
     winName = 'YOLO-Opencv-DNN'
-
     try:
         # Read Video file
         cap = cv2.VideoCapture(VIDEO_PATH)

@@ -10,40 +10,30 @@ def get_class_names(label_path):
 
 
 class DetectBoxes:
-    def __init__(self, label_path, confidence_threshold=0.5, nms_threshold=0, mask_threshold=0, has_mask=False):
+    def __init__(self, label_path, confidence_threshold=0.5, nms_threshold=0):
         self.classes = get_class_names(label_path)
         self.confThreshold = confidence_threshold
         self.nmsThreshold = nms_threshold
-        self.maskThreshold = mask_threshold
-        self.hasMask = has_mask
-        self.maskColor = [255, 178, 50]
 
     # detect bounding boxes from given frame
-    def detect_bounding_boxes(self, frame, output, masks=None):
+    def detect_bounding_boxes(self, frame, output):
+        '''
+        frame: frame from video or webcam
+        output: detected information generated from darknet
+        '''
         height = frame.shape[0]
         width = frame.shape[1]
 
         if self.nmsThreshold is not 0:
             self.detect_yolo(frame, output, width, height)
-        elif self.maskThreshold is not 0:
-            self.detect_maskrcnn(frame, output, width, height, masks)
-        else:
-            self.detect_fast_rcnn(frame, output, height, width)
-
-    def detect_fast_rcnn(self, frame, output, width, height):
-        for detection in output[0, 0, :, :]:
-            score = float(detection[2])
-            if score > self.confThreshold:
-                class_id = int(detection[1])
-
-                left = int(detection[3] * height)
-                top = int(detection[4] * width)
-                right = int(detection[5] * height)
-                bottom = int(detection[6] * width)
-
-                self.draw_boxes(frame, class_id, score, left, top, right, bottom)
 
     def detect_yolo(self, frame, output, frame_width, frame_height):
+        '''
+        frame: frame from video or webcam
+        output: detected information generated from darknet
+        frame_width: width of frame
+        frame_height: height of frame
+        '''
         # Search for all bounding boxes
         # Save bounding box that have higher score than given confidence threshold
         class_ids = []
@@ -77,32 +67,17 @@ class DetectBoxes:
             height = box[3]
             self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
 
-    def detect_maskrcnn(self, frame, output, width, height, masks):
-        numDetections = output.shape[2]
-        for i in range(numDetections):
-            box = output[0, 0, i]
-            mask = masks[i]
-            score = box[2]
-            if score > self.confThreshold:
-                class_id = int(box[1])
-                left = int(width * box[3])
-                top = int(height * box[4])
-                right = int(width * box[5])
-                bottom = int(height * box[6])
-
-                left = max(0, min(left, width - 1))
-                top = max(0, min(top, height - 1))
-                right = max(0, min(right, width - 1))
-                bottom = max(0, min(bottom, height - 1))
-
-                class_mask = mask[class_id]
-
-                self.draw_boxes(frame, class_id, score, left, top, right, bottom)
-                if self.hasMask:
-                    self.draw_masks(frame, class_mask, left, top, right, bottom)
-
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):
+        '''
+        frame: frame from video or webcam
+        class_id: class index that detected object belongs
+        conf: confidence of the detected object
+        left: left coord
+        top: top coord
+        right: right coord
+        bottom: bottom coord
+        '''
         color, txt_color = ((0, 0, 0), (0, 0, 0))
         label = '{}%'.format(round((conf*100), 1))
         if self.classes:
@@ -123,14 +98,3 @@ class DetectBoxes:
                       (left + round(1.5 * label_size[0]), top + base_line),
                       color=color, thickness=cv2.FILLED)
         cv2.putText(frame, label, (left, top), cv2.FONT_HERSHEY_SIMPLEX, 0.75, color=txt_color, thickness=2)
-
-    def draw_masks(self, frame, class_mask, left, top, right, bottom):
-        class_mask= cv2.resize(class_mask, (right - left + 1, bottom - top + 1))
-        mask= (class_mask > self.maskThreshold)
-        roi = frame[top:bottom+1, left:right+1][mask]
-
-        frame[top:bottom+1, left:right+1][mask] = ([0.3*self.maskColor[0], 0.3*self.maskColor[1],
-                                                    0.3*self.maskColor[2]] + 0.7 * roi).astype(np.uint8)
-        mask = mask.astype(np.uint8)
-        contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(frame[top:bottom+1, left:right+1], contours, -1, self.maskColor, 3, cv2.LINE_8, hierarchy, 100)

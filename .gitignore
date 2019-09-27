@@ -6,8 +6,7 @@ __pycache__/*
 .idea/*
 
 # Download images
-assets/*
-!assets/drone_video_short.mp4
+assets/drone_video_short.mp4
 
 # Weights
 weights/*
