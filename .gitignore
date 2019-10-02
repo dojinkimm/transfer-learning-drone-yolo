@@ -1,6 +1,7 @@
 # Python virtual environment
 venv/*
 __pycache__/*
+.vscode/*
 
 # IDE environment
 .idea/*
@@ -10,7 +11,6 @@ assets/drone_video_short.mp4
 
 # Weights
 weights/*
-!weights/yolov3-tiny.weights
 !weights/yolo-drone.weights
 
 # tensorflow utils
