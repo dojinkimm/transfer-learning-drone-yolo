@@ -8,10 +8,15 @@ def arg_parse():
     """ Parsing Arguments for detection """
 
     parser = argparse.ArgumentParser(description='Yolov3')
+    # parser.add_argument("--video", help="Path where video is located",
+    #                     default="assets/drone_video_short.mp4", type=str)
     parser.add_argument("--video", help="Path where video is located",
-                        default="assets/drone_video_short.mp4", type=str)
-    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
-    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolo-drone.weights")
+                        default="assets/cars.mp4", type=str)
+    # parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
+    # parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolo-drone.weights")
+    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolov3-tiny.cfg")
+    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolov3-tiny.weights")
+
     parser.add_argument("--conf", dest="confidence", help="Confidence threshold for predictions", default=0.5)
     parser.add_argument("--nms", dest="nmsThreshold", help="NMS threshold", default=0.4)
     parser.add_argument("--resolution", dest='resol', help="Input resolution of network. Higher "
@@ -38,7 +43,7 @@ def main():
     print("Network successfully loaded")
 
     # class names ex) person, car, truck, and etc.
-    PATH_TO_LABELS = "cfg/coco-drone.names"
+    PATH_TO_LABELS = "cfg/coco.names"
 
     # load detection class, default confidence threshold is 0.5
     detect = DetectBoxes(PATH_TO_LABELS, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
@@ -59,7 +64,7 @@ def main():
             break
 
         # Create a 4D blob from a frame.
-        blob = cv2.dnn.blobFromImage(frame, 1/255, (int(args.resol),int(args.resol)), (0, 0, 0), True, crop=False)
+        blob = cv2.dnn.blobFromImage(frame, 1/255, (int(args.resol), int(args.resol)), (0, 0, 0), True, crop=False)
 
         # Set the input to the network
         net.setInput(blob)
