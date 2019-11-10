@@ -1,11 +1,13 @@
+"""
+Py file that changes originally labelled numbers to number I want to change.
+e.g. 15 0.xx 0.xx 0.xx 0.xx -> 0 0.xx 0.xx 0.xx 0.xx
+"""
 import os
 
 label_to_change = ['15']
 new_label = "0"
 
 
-# if labelled numbers are different, it changes to number I need
-# e.g. 15 0.xx 0.xx 0.xx 0.xx -> 0 0.xx 0.xx 0.xx 0.xx
 def main():
     path = "PATH/TO/LABELS"
     dir_list = os.listdir(path)
