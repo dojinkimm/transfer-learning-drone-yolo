@@ -300,7 +300,6 @@
 /content/drive/My Drive/darknet/images/kaunas-lithuania-october-30-2015-260nw-334798739.jpg
 /content/drive/My Drive/darknet/images/chanburi-thailand-11-april-2017-260nw-633128876.jpg
 /content/drive/My Drive/darknet/images/456.jpg
-/content/drive/My Drive/darknet/images/.DS_Store
 /content/drive/My Drive/darknet/images/pilsen-czech-republic-january-19-260nw-561511591.jpg
 /content/drive/My Drive/darknet/images/minsk-belarusmay-26-2016man-holding-260nw-433253650.jpg
 /content/drive/My Drive/darknet/images/krasnodar-russia-may-30-2017-260nw-651799627.jpg
