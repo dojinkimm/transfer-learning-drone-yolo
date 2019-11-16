@@ -540,7 +540,6 @@
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/moscow-russia-march-3-2017-260nw-594254663.jpg
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/moscow-mar-11-2014-control-260nw-261359609.jpg
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/73.jpg
-/Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/.DS_Store
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/thailand-july-17-2018-dji-260nw-1141711196.jpg
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/pilsen-czech-republic-august-11-260nw-305238515.jpg
 /Users/dojinkim/Desktop/transfer-learning-drone-yolo/images/pilsen-czech-republic-june-28-260nw-291448265.jpg
