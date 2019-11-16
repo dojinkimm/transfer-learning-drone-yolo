@@ -11,6 +11,3 @@ assets/drone_video_short.mp4
 
 # Weights
 weights/*
-
-# tensorflow utils
-t_utils/__pycache__/*

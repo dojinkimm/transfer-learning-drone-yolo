@@ -8,8 +8,6 @@ def arg_parse():
     """ Parsing Arguments for detection """
 
     parser = argparse.ArgumentParser(description='Yolov3')
-    # parser.add_argument("--video", help="Path where video is located",
-    #                     default="assets/drone_video_short.mp4", type=str)
     parser.add_argument("--video", help="Path where video is located",
                         default="assets/cars.mp4", type=str)
     # parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
